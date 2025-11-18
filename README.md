@@ -180,7 +180,7 @@
 
 ### 1\. Clonar o projeto
 
-### git clone https://github.com/seu-usuario/fastpays-desafio.git
+### git clone https://github.com/seu-usuario/fastpays-backend-test
 
 ### cd fastpays-desafio
 
@@ -210,7 +210,7 @@
 
 ### 
 
-### Depois disso, a API vai estar em:  http://localhost:8080
+### Depois disso, a API vai estar em:  http://localhost:3000
 
 # 
 
