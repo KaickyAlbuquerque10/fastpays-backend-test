@@ -1,324 +1,172 @@
-# 🚀 FastPays API — Desafio Técnico (README/ dev júnior)
+# 🚀 FastPays API — Desafio Técnico (Java + Spring Boot)
 
-# 
+Este projeto foi desenvolvido para o processo seletivo da **FastPays**.  
+Tentei deixar tudo o mais simples e organizado possível, seguindo exatamente o que o desafio solicitava.
 
-##### Esse projeto foi feito para o processo seletivo da FastPays.
+Foi uma boa oportunidade para treinar:
+- Java
+- Spring Boot
+- Docker
+- PostgreSQL
+- Testes unitários
+- Estruturação de API REST na prática
 
-##### Eu tentei deixar tudo o mais simples e organizado possível, usando as tecnologias que o desafio pedia.
+---
 
-##### Foi uma boa oportunidade para treinar Java, Spring Boot, Docker e também entender melhor como estruturar uma API real.
+#  Tecnologias Utilizadas
 
-# 
+Usei algumas tecnologias que já conhecia e outras que estou aprendendo agora:
 
-# &nbsp;Tecnologias que usei
+- Java 17  
+- Spring Boot  
+- Spring Web  
+- Spring Data JPA  
+- PostgreSQL  
+- Docker / Docker Compose  
+- JUnit 5  
+- Mockito  
+- Maven  
 
-# 
+Tentei manter tudo simples, direto e padronizado.
 
-### Eu usei tecnologias que já tive um pouco de contato e outras que estou estudando agora:
+---
 
-### 
+#  O que a API faz
 
-### Java 17
+O sistema permite:
 
-### 
+- Cadastrar empresas  
+- Cadastrar pessoas vinculadas a uma empresa  
+- Listar todas as pessoas  
+- Listar pessoas de uma empresa específica  
+- Buscar empresa por ID  
 
-### Spring Boot
+O desafio também pedia para:
 
-### 
+- limpar CPF/CNPJ (deixar apenas números)  
+- validar CPF  
 
-### Spring Web
+Isso foi implementado em classes auxiliares na pasta `util`.
 
-### 
+---
 
-### Spring Data JPA
+#  Como funciona a limpeza de CPF/CNPJ
 
-### 
+Quando o usuário envia:
 
-### PostgreSQL
+"111.222.333-44"
+"12.345.678/0001-90"
 
-### 
+O sistema converte para:
 
-### Docker / Docker Compose
+"11122233344"
+"12345678000190"
 
-### 
+Isso deixa o banco padronizado e facilita consultas futuras.
 
-### JUnit 5 (para testes)
+#  Testes Unitários
 
-### 
+Foram criados testes focados **nas regras de negócio**, conforme solicitado:
 
-### Maven
+✔ validar CPF  
+✔ limpar strings (remover pontos, traços e barras)  
+✔ regras básicas de criação de pessoa  
+✔ rejeitar CPF inválido  
+✔ garantir que a empresa exista  
 
-### 
+Ainda estou aprendendo testes, então tentei deixar tudo simples e direto ao ponto.
 
-### Tentei manter tudo básico e direto ao ponto.
+Para rodar os testes:
 
-# 
+bash
+mvn test
 
-# &nbsp;O que o projeto faz
+ Estrutura do Projeto
 
-# 
+src/main/java/com/fastpays/
+ ├── controller  → rotas/endpoints da API
+ ├── service     → regras de negócio
+ ├── repository  → comunicação com o banco via JPA
+ └── util        → validação e limpeza de documentos (CPF/CNPJ)
 
-### O sistema é simples:
+src/main/resources/
+ └── application.properties → configurações da aplicação
+Tentei seguir o padrão mais comum de projetos Spring Boot.
 
-### 
+ Como rodar o projeto (Docker)
+A maneira mais simples de rodar tudo é usando Docker.
 
-### Cadastra empresas
+1. Clonar o repositório
 
-### 
+git clone https://github.com/Kaicky_Albuquerque/fastpays-backend-test
+cd fastpays-backend-test
 
-### Cadastra pessoas
+2. Subir a aplicação
 
-### 
+docker compose up --build
+Esse comando irá:
 
-### Lista pessoas
+subir o banco PostgreSQL
 
-### 
+subir a API Spring Boot
 
-### Lista pessoas por empresa
+criar as tabelas automaticamente
 
-### 
+A API estará disponível em:
 
-### Busca empresa por ID
+ http://localhost:3000
 
-### 
+ Como rodar os testes
+mvn test
 
-### O desafio também pedia para limpar CPF e CNPJ (deixar só os números) e validar o CPF.
+ Endpoints da API
+Criar Empresa
+POST /empresas
 
-### Isso foi feito em uma classe utilitária separada.
+json
 
-# 
+{
+  "nome": "FastPays Tecnologia",
+  "cnpj": "12.345.678/0001-90",
+  "endereco": "Av. Paulista, 1000"
+}
+Criar Pessoa
+POST /pessoa
 
-# &nbsp;Como funciona a limpeza de CPF/CNPJ
+json
 
-# 
+{
+  "nome": "Fulano da Silva",
+  "cpf": "529.982.247-25",
+  "email": "teste@email.com",
+  "empresa": {
+    "id": 1
+  }
+}
 
-### Quando o usuário manda algo tipo:
+ Importante:
 
-### 
+CPF passa por validação real
 
-### "111.222.333-44"
+A empresa deve existir
 
-### 
+O campo correto é empresa: { "id": 1 }
 
-### "12.345.678/0001-90"
+Buscar Empresa por ID
+GET /empresas/{id}
 
-### 
+Listar todas as pessoas
+GET /pessoas
 
-### Eu transformo para:
+Listar pessoas de uma empresa
+GET /empresas/{id}/pessoas
 
-### 
+ Considerações finais
+Estou em busca da minha primeira oportunidade como desenvolvedor e esse desafio foi uma ótima experiência prática.
+Tentei fazer um código simples, organizado e fácil de entender.
 
-### "11122233344"
+Também deixei comentários nos pontos que achei importante explicar.
 
-### 
+Se algo puder ser melhorado, fico totalmente aberto a feedback — estou aprendendo muito com esse tipo de projeto.
 
-### "12345678000190"
-
-### 
-
-### Isso deixa o banco sempre padronizado e facilita buscar depois.
-
-# 
-
-# &nbsp;Testes Unitários (o que eu consegui fazer)
-
-# 
-
-### Eu fiz testes focados nas regras de negócio pedidas:
-
-### 
-
-### validar CPF
-
-### 
-
-### limpar strings (CPF/CNPJ)
-
-### 
-
-### regras básicas de negócio (ex.: se empresa existe)
-
-### 
-
-### Ainda estou aprendendo testes, então deixei o mais claro e simples possível, sem complicar.FastPays Test Java
-
-
-
-
-
-# &nbsp;Estrutura do Projeto (de forma simples)
-
-### src/main/java/com/fastpays/
-
-###  ├── controller   → onde ficam as rotas da API
-
-###  ├── service      → regras de negócio
-
-###  ├── repository   → comunicação com o banco usando JPA
-
-###  └── util         → limpeza/validação de documentos
-
-### 
-
-### src/main/resources/
-
-###  └── application.properties → configurações da aplicação
-
-# 
-
-# \*Tentei seguir o padrão mais comum dos projetos Spring Boot.\*
-
-# 
-
-# &nbsp;Como rodar o projeto (bem simples)
-
-# 
-
-### O jeito mais fácil de rodar tudo é usando o Docker.
-
-### 
-
-### 1\. Clonar o projeto
-
-### git clone https://github.com/seu-usuario/fastpays-backend-test
-
-### cd fastpays-desafio
-
-### 
-
-### 2\. Rodar tudo com um único comando
-
-### docker-compose up --build
-
-### 
-
-### 
-
-### Esse comando vai:
-
-### 
-
-### subir o PostgreSQL
-
-### 
-
-### subir a API
-
-### 
-
-### criar as tabelas
-
-### 
-
-### Depois disso, a API vai estar em:  http://localhost:3000
-
-# 
-
-# &nbsp;Como rodar os testes
-
-# 
-
-# Se quiser rodar os testes manualmente:
-
-# 
-
-# mvn test
-
-# 
-
-# &nbsp;Endpoints da API (bem direto)
-
-# &nbsp;Criar Empresa
-
-# 
-
-# POST /empresas
-
-# 
-
-# {
-
-#   "nome": "FastPays Tecnologia",
-
-#   "cnpj": "12.345.678/0001-90",
-
-#   "endereco": "Av. Paulista, 1000"
-
-# }
-
-# 
-
-# &nbsp; Criar Pessoa
-
-# 
-
-# POST /pessoas
-
-# 
-
-# {
-
-#   "nome": "Fulano da Silva",
-
-#   "cpf": "111.222.333-44",
-
-#   "email": "teste@email.com",
-
-#   "empresaId": 1
-
-# }
-
-# 
-
-# &nbsp;Buscar Empresa por ID
-
-# 
-
-# GET /empresas/{id}
-
-# 
-
-# &nbsp;Listar todas as pessoas
-
-# 
-
-# GET /pessoas
-
-# 
-
-# &nbsp;Listar pessoas de uma empresa
-
-# 
-
-# GET /empresas/{id}/pessoas
-
-# 
-
-# &nbsp;Considerações finais (bem sinceras)
-
-# 
-
-# Estou em busca da primeira vaga como desenvolvedor e estou aprendendo bastante com esse tipo de desafio.
-
-# 
-
-# Tentei deixar o código limpo, organizado e com nomes fáceis de entender.
-
-# 
-
-# Escrevi comentários em pontos que achei importante explicar.
-
-# 
-
-# Se alguma coisa puder ser melhorada, fico super aberto a feedback, porque estou evoluindo bastante com essas práticas.
-
-# 
-
-# Obrigado pela oportunidade! 
-
-
-
-
-
-
-
+Obrigado pela oportunidade! 
