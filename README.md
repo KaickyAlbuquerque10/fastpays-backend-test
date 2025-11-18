@@ -99,7 +99,7 @@ A maneira mais simples de rodar tudo é usando Docker.
 1. Clonar o repositório
 
 git clone https://github.com/Kaicky_Albuquerque/fastpays-backend-test
-cd fastpays-backend-test
+
 
 2. Subir a aplicação
 
